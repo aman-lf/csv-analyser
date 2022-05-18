@@ -1,6 +1,8 @@
 import './env';
+import './db';
 
 import express from 'express';
+
 import logger from './utils/logger';
 
 const app = express();
@@ -12,5 +14,5 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.listen(app.get('port'), app.get('host'), () => {
-  logger.info(`Server started at http://${app.get('host')}:${app.get('port')}/api`);
+  logger.info(`Server started at http://${app.get('host')}:${app.get('port')}/`);
 });
