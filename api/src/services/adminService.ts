@@ -36,10 +36,10 @@ export function checkEmail(email: string) {
     .count()
     .then((count) => {
       if (count === 0) return true;
-      else throw Boom.conflict('Admin already exists');
+      throw Boom.conflict('Admin already exists');
     })
-    .catch((err) => {
-      throw Boom;
+    .catch(err => {
+      throw err
     });
 }
 
@@ -65,9 +65,10 @@ export function loginAdmin(admin: IAdmin) {
 
           return { token: jwt.sign(payload, SECRET, { expiresIn: 60 * 5 }) };
         }
+        throw Boom.unauthorized('Email or password is incorrect');
       });
     })
     .catch(Admin.NotFoundError, () => {
-      throw Boom.unauthorized('Admin not found');
+      throw Boom.unauthorized('User not found');
     });
 }
